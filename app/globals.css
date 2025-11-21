@@ -5,8 +5,6 @@
   --foreground: #171717;
   --knacky-primary: #f18701;
   --knacky-primary-hover: #d97600;
-  --knacky-secondary: #3d348b;
-  --knacky-secondary-hover: #2c2365;
   --knacky-splash-background: #f7b801;
 }
 
@@ -15,22 +13,18 @@
   --color-foreground: var(--foreground);
   --color-knacky-primary: var(--knacky-primary);
   --color-knacky-primary-hover: var(--knacky-primary-hover);
-  --color-knacky-secondary: var(--knacky-secondary);
-  --color-knacky-secondary-hover: var(--knacky-secondary-hover);
   --color-knacky-splash-background: var(--knacky-splash-background);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+a,
+button {
+  cursor: pointer;
 }

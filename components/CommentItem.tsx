@@ -43,22 +43,24 @@ export default function CommentItem({ comment }: CommentItemProps) {
   }, [comment.content]);
 
   return (
-    <div className="border-b pb-4 mb-4">
-      <div className="mb-2">
-        <span className="font-bold">{comment.user_id}</span>
-        <span> • </span>
-        <span>{formatDate(comment.created_at)}</span>
+    <div className="border-b border-black/10 pb-6">
+      <div className="flex items-center gap-2 mb-3 text-sm">
+        <span className="text-black font-medium">{comment.user_id}</span>
+        <span className="text-gray-400">•</span>
+        <span className="text-gray-400">{formatDate(comment.created_at)}</span>
       </div>
       <p
         ref={contentRef}
-        className={`wrap-break-word ${isExpanded ? "" : "line-clamp-4"}`}
+        className={`text-gray-700 leading-relaxed wrap-break-word ${
+          isExpanded ? "" : "line-clamp-4"
+        }`}
       >
         {comment.content}
       </p>
       {showButton && (
         <button
           onClick={() => setIsExpanded((prev) => !prev)}
-          className="text-sm text-gray-500 hover:text-gray-700 mt-1"
+          className="text-sm text-knacky-primary hover:text-knacky-primary-hover mt-2 uppercase tracking-wider"
         >
           {isExpanded ? "Show less" : "Read more"}
         </button>

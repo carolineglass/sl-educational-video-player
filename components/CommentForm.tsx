@@ -56,38 +56,45 @@ export default function CommentForm({ videoId }: CommentFormProps) {
   const isOverLimit = characterCount > MAX_COMMENT_LENGTH;
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6">
+    <form onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label htmlFor="content" className="block font-bold mb-2">
+        <label
+          htmlFor="content"
+          className="block text-sm text-gray-500 uppercase tracking-wider mb-3"
+        >
           Add a comment
         </label>
         <textarea
           id="content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          rows={3}
-          className={`w-full border rounded p-2 ${
-            isOverLimit ? "border-red-500" : ""
+          rows={4}
+          className={`w-full px-4 py-3 bg-gray-50 border-0 border-b-2 focus:outline-none focus:border-knacky-primary transition-colors resize-none text-black placeholder:text-gray-400 ${
+            isOverLimit ? "border-red-500" : "border-black/10"
           }`}
-          placeholder="Write your comment..."
+          placeholder="Share your thoughts..."
           disabled={isSubmitting}
           required
         />
         <p
-          className={`text-sm mt-1 ${
-            isOverLimit ? "text-red-600" : "text-gray-500"
+          className={`text-xs mt-2 uppercase tracking-wider ${
+            isOverLimit ? "text-red-600" : "text-gray-400"
           }`}
         >
-          {characterCount}/{MAX_COMMENT_LENGTH} characters
+          {characterCount}/{MAX_COMMENT_LENGTH}
         </p>
       </div>
 
-      {error && <p className="text-red-600 mb-4">{error}</p>}
+      {error && (
+        <div className="mb-4 p-3 border-l-2 border-red-500 bg-red-50">
+          <p className="text-red-900 text-sm">{error}</p>
+        </div>
+      )}
 
       <button
         type="submit"
         disabled={isSubmitting || isOverLimit}
-        className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+        className="w-full px-6 py-3 bg-knacky-primary text-white hover:bg-knacky-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider text-sm"
       >
         {isSubmitting ? "Posting..." : "Post Comment"}
       </button>

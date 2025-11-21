@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createVideo } from "@/lib/api/videos";
 import { USER_ID } from "@/lib/constants";
@@ -17,6 +17,22 @@ export default function AddVideoModal({ onClose }: AddVideoModalProps) {
   const [videoUrl, setVideoUrl] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  // Scroll to error when it occurs
+  useEffect(() => {
+    if (error && errorRef.current) {
+      errorRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [error]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +63,8 @@ export default function AddVideoModal({ onClose }: AddVideoModalProps) {
         video_url: trimmedVideoUrl,
       });
 
-      // Refresh page data and close modal
+      // Navigate to home page to see the new video and close modal
+      router.push("/");
       router.refresh();
       onClose();
     } catch {
@@ -58,95 +75,137 @@ export default function AddVideoModal({ onClose }: AddVideoModalProps) {
   };
 
   return (
-    <div
-      className="fixed inset-0 flex items-center justify-center z-50"
-      style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-    >
-      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Add New Video</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
-            disabled={isSubmitting}
-          >
-            ✕
-          </button>
-        </div>
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="relative max-w-3xl w-full max-h-[80vh]">
+        {/* Close button - positioned outside scrollable area */}
+        <button
+          onClick={onClose}
+          className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
+          aria-label="Close"
+          disabled={isSubmitting}
+        >
+          <span className="text-3xl">✕</span>
+        </button>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="title" className="block font-bold mb-2">
-              Title <span className="text-red-600">*</span>
-            </label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full border rounded p-2"
-              placeholder="Enter video title"
-              disabled={isSubmitting}
-              aria-required="true"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="description" className="block font-bold mb-2">
-              Description <span className="text-red-600">*</span>
-            </label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={3}
-              className="w-full border rounded p-2"
-              placeholder="Enter video description"
-              disabled={isSubmitting}
-              aria-required="true"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="videoUrl" className="block font-bold mb-2">
-              Video URL <span className="text-red-600">*</span>
-            </label>
-            <input
-              type="text"
-              id="videoUrl"
-              value={videoUrl}
-              onChange={(e) => setVideoUrl(e.target.value)}
-              className="w-full border rounded p-2"
-              placeholder="Enter YouTube, Vimeo, or Dailymotion URL"
-              disabled={isSubmitting}
-              aria-required="true"
-            />
-          </div>
-
-          {error && (
-            <p id="form-error" className="text-red-600 mb-4" role="alert">
-              {error}
+        <div className="bg-white w-full max-h-[80vh] overflow-y-auto">
+          {/* Header */}
+          <div className="border-b border-black/10 p-6 lg:p-8">
+            <h2 className="text-2xl md:text-3xl text-black tracking-tight leading-tight mb-2">
+              Add New Video
+            </h2>
+            <p className="text-gray-600">
+              Share your knacks with the community
             </p>
-          )}
-
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={onClose}
-              disabled={isSubmitting}
-              className="flex-1 px-4 py-2 border rounded disabled:opacity-50"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
-            >
-              {isSubmitting ? "Adding..." : "Add Video"}
-            </button>
           </div>
-        </form>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="p-6 lg:p-8">
+            {error && (
+              <div
+                ref={errorRef}
+                className="mb-8 p-4 border-l-2 border-red-500 bg-red-50"
+              >
+                <p className="text-red-900 text-sm" role="alert">
+                  {error}
+                </p>
+              </div>
+            )}
+
+            <div className="space-y-6">
+              {/* Step 1: Title */}
+              <div>
+                <label
+                  htmlFor="title"
+                  className="block text-sm text-gray-500 uppercase tracking-wider mb-4"
+                >
+                  01 — Title
+                </label>
+                <input
+                  id="title"
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Enter video title"
+                  className="w-full px-0 py-2 text-xl bg-transparent border-b-2 border-black/10 focus:outline-none focus:border-knacky-primary transition-colors text-black placeholder:text-gray-300"
+                  disabled={isSubmitting}
+                  maxLength={100}
+                  aria-required="true"
+                />
+                <div className="mt-2 flex justify-between text-xs text-gray-400 uppercase tracking-wider">
+                  <span>Clear and descriptive</span>
+                  <span>{title.length}/100</span>
+                </div>
+              </div>
+
+              {/* Step 2: Description */}
+              <div>
+                <label
+                  htmlFor="description"
+                  className="block text-sm text-gray-500 uppercase tracking-wider mb-4"
+                >
+                  02 — Description
+                </label>
+                <textarea
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Explain what viewers will learn..."
+                  rows={3}
+                  className="w-full px-0 py-2 bg-transparent border-b-2 border-black/10 focus:outline-none focus:border-knacky-primary transition-colors resize-none text-black placeholder:text-gray-300"
+                  disabled={isSubmitting}
+                  maxLength={500}
+                  aria-required="true"
+                />
+                <div className="mt-2 flex justify-between text-xs text-gray-400 uppercase tracking-wider">
+                  <span>What makes this video helpful?</span>
+                  <span>{description.length}/500</span>
+                </div>
+              </div>
+
+              {/* Step 3: Video URL */}
+              <div>
+                <label
+                  htmlFor="videoUrl"
+                  className="block text-sm text-gray-500 uppercase tracking-wider mb-4"
+                >
+                  03 — Video URL
+                </label>
+                <input
+                  id="videoUrl"
+                  type="text"
+                  value={videoUrl}
+                  onChange={(e) => setVideoUrl(e.target.value)}
+                  placeholder="https://youtube.com/watch?v=..."
+                  className="w-full px-0 py-2 bg-transparent border-b-2 border-black/10 focus:outline-none focus:border-knacky-primary transition-colors text-black placeholder:text-gray-300"
+                  disabled={isSubmitting}
+                  aria-required="true"
+                />
+                <p className="text-xs text-gray-400 mt-2">
+                  Supports YouTube, Vimeo, and Dailymotion URLs
+                </p>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="grid grid-cols-2 gap-4 pt-6">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-6 py-3 border border-black/10 text-black hover:bg-gray-50 transition-colors uppercase tracking-wider text-sm"
+                disabled={isSubmitting}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="px-6 py-3 bg-knacky-primary text-white hover:bg-knacky-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider text-sm"
+              >
+                {isSubmitting ? "Adding..." : "Add Video"}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

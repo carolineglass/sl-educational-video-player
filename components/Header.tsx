@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import AddVideoModal from "./AddVideoModal";
 
 export default function Header() {
@@ -14,7 +15,14 @@ export default function Header() {
           <div className="grid grid-cols-12 gap-6 items-center">
             {/* Logo - Spans 3 columns */}
             <div className="col-span-6 md:col-span-3">
-              <Link href="/">
+              <Link href="/" className="flex items-center gap-3">
+                <Image
+                  src="/knacky-logo.svg"
+                  alt="Knacky Logo"
+                  width={40}
+                  height={40}
+                  className="w-auto h-auto"
+                />
                 <h1 className="text-3xl text-black tracking-tight">KNACKY</h1>
               </Link>
             </div>
