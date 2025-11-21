@@ -48,7 +48,7 @@ export default function SplashScreen({ onGetStarted }: SplashScreenProps) {
             <div className="mt-8 lg:mt-0">
               <button
                 onClick={onGetStarted}
-                className="bg-knacky-primary text-white px-6 md:px-8 py-3 hover:bg-knacky-primary-hover transition-all active:scale-98 flex items-center gap-2 group animate-fade-in animate-delay-400"
+                className="btn btn-primary px-6 md:px-8 active:scale-98 flex items-center gap-2 group animate-fade-in animate-delay-400"
               >
                 <span className="uppercase tracking-wide text-sm">
                   Get Started

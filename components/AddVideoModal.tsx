@@ -196,7 +196,7 @@ export default function AddVideoModal({ onClose }: AddVideoModalProps) {
               <button
                 type="button"
                 onClick={onClose}
-                className="px-6 py-3 border border-black/10 text-black hover:bg-gray-50 transition-colors uppercase tracking-wider text-sm"
+                className="btn btn-secondary"
                 disabled={isSubmitting}
               >
                 Cancel
@@ -204,7 +204,7 @@ export default function AddVideoModal({ onClose }: AddVideoModalProps) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-6 py-3 bg-knacky-primary text-white hover:bg-knacky-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider text-sm"
+                className="btn btn-primary"
               >
                 {isSubmitting ? "Adding..." : "Add Video"}
               </button>

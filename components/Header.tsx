@@ -31,7 +31,7 @@ export default function Header() {
             <div className="col-span-6 md:col-span-3 md:col-start-10 flex justify-end">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-knacky-primary text-white px-8 py-3 hover:bg-knacky-primary-hover transition-all active:scale-98 flex items-center gap-2 group"
+                className="btn btn-primary px-8 active:scale-98 flex items-center gap-2 group"
               >
                 <span className="text-2xl group-hover:rotate-90 transition-transform duration-300">
                   +

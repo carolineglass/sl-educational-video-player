@@ -29,6 +29,39 @@ button {
   cursor: pointer;
 }
 
+/* Global button styles */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem; /* 16px */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--knacky-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--knacky-primary-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+.btn-secondary:hover {
+  background-color: rgb(249 250 251);
+}
+
 /* Splash screen animations */
 @keyframes slideInFromLeft {
   from {

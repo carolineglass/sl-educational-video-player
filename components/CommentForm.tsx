@@ -94,7 +94,7 @@ export default function CommentForm({ videoId }: CommentFormProps) {
       <button
         type="submit"
         disabled={isSubmitting || isOverLimit}
-        className="w-full px-6 py-3 bg-knacky-primary text-white hover:bg-knacky-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider text-sm"
+        className="btn btn-primary w-full"
       >
         {isSubmitting ? "Posting..." : "Post Comment"}
       </button>

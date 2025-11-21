@@ -35,8 +35,8 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
       </div>
 
       {/* Title and metadata section */}
-      <div className="mt-8 py-8 border-b border-black/10">
-        <h1 className="text-2xl md:text-4xl lg:text-5xl text-black tracking-tight leading-tight mb-6 wrap-break-word">
+      <div className="py-8 border-b border-black/10">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl text-black tracking-tight leading-tight mb-6 wrap-break-word">
           {video.title}
         </h1>
 

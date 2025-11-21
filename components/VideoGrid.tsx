@@ -38,7 +38,7 @@ export default function VideoGrid({ videos }: VideoGridProps) {
           >
             <Link href={`/video/${video.id}`} className="block group">
               {/* Thumbnail with hover zoom effect */}
-              <div className="w-full aspect-video bg-knacky-splash-background relative mb-6 overflow-hidden">
+              <div className="w-full aspect-video bg-knacky-splash-background relative mb-6 overflow-hidden rounded-2xl">
                 {thumbnailUrl ? (
                   <Image
                     src={thumbnailUrl}
