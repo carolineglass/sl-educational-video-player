@@ -144,8 +144,6 @@ npm run start
 
 ## Screenshots
 
-> Add screenshots of your application here
-
 ### Home Page (Video Grid)
 
 ![Home Page](public/screenshots/home.png)
@@ -157,16 +155,25 @@ npm run start
 ### Video Detail Page
 
 ![Video Detail](public/screenshots/video-detail.png)
+
+### Video Detail Page With Comments
+
 ![Video Detail With Comments](public/screenshots/video-detail-comments.png)
+
+### Video Detail Page With Long Comments and Read More Button
+
 ![Video Detail With Long Comment](public/screenshots/video-detail-read-more.png)
 
 ### Add Video Modal
 
 ![Add Video Modal](public/screenshots/add-video-modal.png)
 
-### Mobile Responsive View
+### Mobile Responsive View - Homepage
 
 ![Mobile Homepage](public/screenshots/mobile-home.png)
+
+### Mobile Responsive View - Detail Page
+
 ![Mobile Detail Page](public/screenshots/mobile-detail.png)
 
 ### No Video Yet View
