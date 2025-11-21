@@ -256,10 +256,10 @@ interface Comment {
 Use these URLs to test video upload functionality:
 
 ```
-YouTube:     https://www.youtube.com/watch?v=dQw4w9WgXcQ
-YouTube:     https://youtu.be/dQw4w9WgXcQ
-Vimeo:       https://vimeo.com/148751763
-Dailymotion: https://www.dailymotion.com/video/x8m7nv3
+YouTube:     https://www.youtube.com/watch?v=NdCia_d1u5c
+YouTube:     https://youtu.be/NdCia_d1u5c
+Vimeo:       https://vimeo.com/779302294
+Dailymotion: https://www.dailymotion.com/video/xrgwfa
 ```
 
 ---
