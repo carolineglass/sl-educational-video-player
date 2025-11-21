@@ -1,6 +1,8 @@
 # Knacky - Educational Video Platform
 
-A modern, full-stack educational video platform built with Next.js 15 that enables users to upload, browse, and discuss video tutorials. Share practical life skills and learn from community-contributed content.
+Thanks for taking the time to check out my project! I had a lot of fun building this and hope you enjoy exploring it.
+
+A modern, full-stack educational video platform built with Next.js 16 that enables users to upload, browse, and discuss video tutorials. Share practical life skills and learn from community-contributed content.
 
 ## Table of Contents
 
@@ -27,43 +29,24 @@ The application follows modern React patterns with Next.js App Router, featuring
 
 ## Features
 
-### Core Functionality
-
-| Feature | Description |
-|---------|-------------|
-| **Video Browsing** | Responsive grid layout displaying video thumbnails, titles, descriptions, and metadata |
-| **Video Playback** | Embedded video player supporting YouTube, Vimeo, and Dailymotion |
-| **Video Upload** | Modal form with URL validation for adding new videos |
-| **Comments System** | Post and view comments with character limits and validation |
-
-### User Experience
-
-| Feature | Description |
-|---------|-------------|
-| **Welcome Splash** | First-visit onboarding modal (persisted via localStorage) |
-| **Loading States** | Custom spinners with contextual messages |
-| **Error Handling** | Error boundaries with recovery options |
-| **Responsive Design** | Mobile-first design with tablet and desktop breakpoints |
-| **Thumbnail Generation** | Automatic thumbnail extraction from video URLs |
-| **Comment Expansion** | "Read more/Show less" for long comments |
-
-### Supported Video Platforms
-
-- **YouTube** - Full URLs (`youtube.com/watch?v=...`) and short links (`youtu.be/...`)
-- **Vimeo** - Full URLs (`vimeo.com/...`)
-- **Dailymotion** - Full URLs (`dailymotion.com/video/...`) and short links (`dai.ly/...`)
+- **Video Browsing** - Responsive grid with auto-generated thumbnails
+- **Video Playback** - Embedded player for YouTube, Vimeo, and Dailymotion
+- **Video Upload** - Add videos via URL with validation
+- **Comments** - Post and view comments with character limits
+- **Welcome Splash** - First-visit onboarding (localStorage persisted)
+- **Responsive Design** - Mobile-first with tablet and desktop breakpoints
 
 ## Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| **Framework** | Next.js 15 (App Router) |
-| **Language** | TypeScript 5 |
-| **UI Library** | React 19 |
-| **Styling** | Tailwind CSS 4 |
-| **Fonts** | Geist Sans & Mono |
-| **Linting** | ESLint 9 |
-| **Formatting** | Prettier |
+| Category       | Technology              |
+| -------------- | ----------------------- |
+| **Framework**  | Next.js 16 (App Router) |
+| **Language**   | TypeScript 5            |
+| **UI Library** | React 19                |
+| **Styling**    | Tailwind CSS 4          |
+| **Fonts**      | Inter & Geist Mono      |
+| **Linting**    | ESLint 9                |
+| **Formatting** | Prettier                |
 
 ## Getting Started
 
@@ -75,12 +58,14 @@ The application follows modern React patterns with Next.js App Router, featuring
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/yourusername/knacky-video-platform.git
    cd knacky-video-platform
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
@@ -90,6 +75,7 @@ The application follows modern React patterns with Next.js App Router, featuring
    ```
 
 3. **Run the development server**
+
    ```bash
    npm run dev
    # or
@@ -117,15 +103,17 @@ npm run start
 │   ├── layout.tsx                # Root layout with Header
 │   ├── loading.tsx               # Global loading state
 │   ├── error.tsx                 # Global error boundary
-│   ├── globals.css               # Global styles & Tailwind config
+│   ├── globals.css               # Global styles, button classes & animations
 │   └── video/[id]/               # Dynamic video detail route
 │       ├── page.tsx              # Video player + comments
 │       ├── loading.tsx           # Video page loading state
 │       └── error.tsx             # Video page error boundary
 │
 ├── components/                   # React components
+│   ├── SplashWrapper.tsx         # App-level splash screen manager
+│   ├── SplashScreen.tsx          # Welcome modal for first-time visitors
 │   ├── Header.tsx                # Navigation with Add Video button
-│   ├── HomePage.tsx              # Home page with splash screen
+│   ├── HomePage.tsx              # Home page container
 │   ├── VideoGrid.tsx             # Responsive video card grid
 │   ├── VideoPlayer.tsx           # Embedded player with metadata
 │   ├── AddVideoModal.tsx         # Video upload form modal
@@ -147,58 +135,43 @@ npm run start
 
 ## Architecture Decisions
 
-### Server vs Client Components
-
-The application strategically uses both server and client components:
-
-**Server Components (SSR)**
-- Pages fetch data at request time for optimal performance
-- Video grid and player are pure presentational components
-- SEO-friendly with server-rendered content
-
-**Client Components (CSR)**
-- Interactive elements like modals and forms
-- State management for splash screen (localStorage)
-- Comment expansion/collapse functionality
-
-### Data Fetching Strategy
-
-- **Parallel Fetching**: Video page fetches video and comments simultaneously using `Promise.all()`
-- **Streaming**: Next.js Suspense boundaries with custom loading states
-- **Revalidation**: `router.refresh()` after mutations to sync server state
-
-### Styling Architecture
-
-- **Tailwind CSS 4** with custom theme colors (Knacky brand)
-- **12-column grid system** for consistent layouts
-- **Mobile-first responsive design** with sm/md/lg breakpoints
-- **CSS custom properties** for brand colors in `:root`
-
-### Component Patterns
-
-- **Composition over inheritance**: Small, focused components
-- **Separation of concerns**: API logic isolated in `/lib/api`
-- **Type safety**: Full TypeScript coverage with strict mode
-- **Error boundaries**: Graceful error handling at multiple levels
+- **Server Components** - Data fetching and SEO-optimized rendering
+- **Client Components** - Interactive elements (modals, forms, localStorage)
+- **Parallel Data Fetching** - `Promise.all()` for concurrent requests
+- **Global CSS Classes** - Reusable button styles (`.btn`, `.btn-primary`, `.btn-secondary`)
+- **12-Column Grid** - Consistent responsive layouts
+- **TypeScript Strict Mode** - Full type safety throughout
 
 ## Screenshots
 
 > Add screenshots of your application here
 
 ### Home Page (Video Grid)
-*Screenshot showing the responsive video grid with thumbnails and metadata*
+
+![Home Page](public/screenshots/home.png)
 
 ### Welcome Splash Screen
-*Screenshot of the first-visit onboarding modal*
+
+![Splash Screen](public/screenshots/splash-page.png)
 
 ### Video Detail Page
-*Screenshot showing video player, metadata, and comments section*
+
+![Video Detail](public/screenshots/video-detail.png)
+![Video Detail With Comments](public/screenshots/video-detail-comments.png)
+![Video Detail With Long Comment](public/screenshots/video-detail-read-more.png)
 
 ### Add Video Modal
-*Screenshot of the video upload form with validation*
+
+![Add Video Modal](public/screenshots/add-video-modal.png)
 
 ### Mobile Responsive View
-*Screenshot demonstrating mobile layout*
+
+![Mobile Homepage](public/screenshots/mobile-home.png)
+![Mobile Detail Page](public/screenshots/mobile-detail.png)
+
+### No Video Yet View
+
+![No Video Yet](public/screenshots/no-videos.png)
 
 ## API Integration
 
@@ -206,13 +179,13 @@ The application integrates with a REST API backend:
 
 ### Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/videos?user_id={userId}` | Fetch all videos for a user |
-| GET | `/api/videos/single?video_id={videoId}` | Fetch single video by ID |
-| POST | `/api/videos` | Create new video |
-| GET | `/api/videos/comments?video_id={videoId}` | Fetch comments for a video |
-| POST | `/api/videos/comments` | Post a new comment |
+| Method | Endpoint                                  | Description                 |
+| ------ | ----------------------------------------- | --------------------------- |
+| GET    | `/api/videos?user_id={userId}`            | Fetch all videos for a user |
+| GET    | `/api/videos/single?video_id={videoId}`   | Fetch single video by ID    |
+| POST   | `/api/videos`                             | Create new video            |
+| GET    | `/api/videos/comments?video_id={videoId}` | Fetch comments for a video  |
+| POST   | `/api/videos/comments`                    | Post a new comment          |
 
 ### Data Types
 
@@ -241,20 +214,23 @@ interface Comment {
 ### Manual Testing Checklist
 
 #### Home Page
+
+- [ ] Splash screen appears on first visit
+- [ ] Splash screen dismisses and doesn't reappear
 - [ ] Videos load and display in a grid
 - [ ] Thumbnails render correctly for YouTube/Vimeo/Dailymotion videos
 - [ ] Video count displays correctly
 - [ ] Clicking a video navigates to detail page
-- [ ] Splash screen appears on first visit
-- [ ] Splash screen dismisses and doesn't reappear
 
 #### Video Detail Page
+
 - [ ] Video player loads and plays embedded video
 - [ ] Video title, description, and metadata display correctly
 - [ ] Back button navigates to home page
 - [ ] Comments load and display
 
 #### Add Video
+
 - [ ] Modal opens when clicking "Add Video"
 - [ ] Form validates required fields
 - [ ] Invalid URLs show error message
@@ -262,12 +238,14 @@ interface Comment {
 - [ ] Character counters work correctly
 
 #### Comments
+
 - [ ] Comment form submits successfully
 - [ ] New comments appear after submission
 - [ ] Character limit enforced (500 characters)
 - [ ] Long comments show "Read more" button
 
 #### Responsive Design
+
 - [ ] Layout adapts on mobile (single column)
 - [ ] Layout adapts on tablet (two columns)
 - [ ] Layout adapts on desktop (three columns)
