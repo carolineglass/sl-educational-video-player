@@ -41,7 +41,7 @@ export function getEmbedUrl(url: string): string | null {
       const videoIndex = pathParts.indexOf("video");
       if (videoIndex !== -1 && pathParts[videoIndex + 1]) {
         const videoId = pathParts[videoIndex + 1];
-        return `https://www.dailymotion.com/embed/video/${videoId}`;
+        return `https://www.dailymotion.com/embed/video/${videoId}?autoplay=false&mute=false`;
       }
     }
 
@@ -49,7 +49,68 @@ export function getEmbedUrl(url: string): string | null {
     if (urlObj.hostname === "dai.ly") {
       const videoId = urlObj.pathname.slice(1);
       if (videoId) {
-        return `https://www.dailymotion.com/embed/video/${videoId}`;
+        return `https://www.dailymotion.com/embed/video/${videoId}?autoplay=false&mute=false`;
+      }
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Gets the thumbnail URL for a video
+ */
+export function getThumbnailUrl(url: string): string | null {
+  try {
+    const urlObj = new URL(url);
+
+    // YouTube
+    if (
+      urlObj.hostname === "www.youtube.com" ||
+      urlObj.hostname === "youtube.com"
+    ) {
+      const videoId = urlObj.searchParams.get("v");
+      if (videoId) {
+        return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+      }
+    }
+
+    // YouTube short URLs (youtu.be)
+    if (urlObj.hostname === "youtu.be") {
+      const videoId = urlObj.pathname.slice(1);
+      if (videoId) {
+        return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+      }
+    }
+
+    // Vimeo - using vumbnail service
+    if (urlObj.hostname === "vimeo.com" || urlObj.hostname === "www.vimeo.com") {
+      const videoId = urlObj.pathname.slice(1);
+      if (videoId) {
+        return `https://vumbnail.com/${videoId}.jpg`;
+      }
+    }
+
+    // Dailymotion
+    if (
+      urlObj.hostname === "dailymotion.com" ||
+      urlObj.hostname === "www.dailymotion.com"
+    ) {
+      const pathParts = urlObj.pathname.split("/");
+      const videoIndex = pathParts.indexOf("video");
+      if (videoIndex !== -1 && pathParts[videoIndex + 1]) {
+        const videoId = pathParts[videoIndex + 1];
+        return `https://www.dailymotion.com/thumbnail/video/${videoId}`;
+      }
+    }
+
+    // Dailymotion short URLs (dai.ly)
+    if (urlObj.hostname === "dai.ly") {
+      const videoId = urlObj.pathname.slice(1);
+      if (videoId) {
+        return `https://www.dailymotion.com/thumbnail/video/${videoId}`;
       }
     }
 
