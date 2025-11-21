@@ -9,6 +9,7 @@ interface VideoGridProps {
 }
 
 export default function VideoGrid({ videos }: VideoGridProps) {
+  // Empty state
   if (videos.length === 0) {
     return (
       <div className="grid grid-cols-12 gap-6">
@@ -27,6 +28,7 @@ export default function VideoGrid({ videos }: VideoGridProps) {
   return (
     <div className="grid grid-cols-12 gap-8">
       {videos.map((video) => {
+        // Extract thumbnail from video URL (YouTube, Vimeo, Dailymotion)
         const thumbnailUrl = getThumbnailUrl(video.video_url);
 
         return (
@@ -35,6 +37,7 @@ export default function VideoGrid({ videos }: VideoGridProps) {
             className="col-span-12 md:col-span-6 lg:col-span-4"
           >
             <Link href={`/video/${video.id}`} className="block group">
+              {/* Thumbnail with hover zoom effect */}
               <div className="w-full aspect-video bg-knacky-splash-background relative mb-6 overflow-hidden">
                 {thumbnailUrl ? (
                   <Image
@@ -50,6 +53,7 @@ export default function VideoGrid({ videos }: VideoGridProps) {
                   </div>
                 )}
               </div>
+              {/* Title with hover color change */}
               <h3 className="text-xl text-black tracking-tight mb-2 line-clamp-2 group-hover:text-knacky-primary transition-colors">
                 {video.title}
               </h3>

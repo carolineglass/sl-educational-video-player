@@ -5,12 +5,17 @@ interface VideoPlayerProps {
   video: Video;
 }
 
+/**
+ * Video detail view with embedded player, title, metadata, and description.
+ * Converts video URLs to embeddable iframes for YouTube, Vimeo, and Dailymotion.
+ */
 export default function VideoPlayer({ video }: VideoPlayerProps) {
+  // Convert video URL to embeddable format
   const embedUrl = getEmbedUrl(video.video_url);
 
   return (
     <div className="overflow-hidden">
-      {/* Video Player */}
+      {/* Embedded video player (16:9 aspect ratio) */}
       <div className="relative bg-black aspect-video w-full">
         {embedUrl ? (
           <iframe
@@ -22,19 +27,19 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
             title={video.title}
           />
         ) : (
+          // Fallback if URL couldn't be converted
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">
             <p className="text-gray-500">Unable to load video</p>
           </div>
         )}
       </div>
 
-      {/* Video Title - Large Typography */}
+      {/* Title and metadata section */}
       <div className="mt-8 py-8 border-b border-black/10">
         <h1 className="text-2xl md:text-4xl lg:text-5xl text-black tracking-tight leading-tight mb-6 wrap-break-word">
           {video.title}
         </h1>
 
-        {/* Metadata */}
         <div className="flex items-center gap-2 text-sm text-gray-500 uppercase tracking-wider">
           <span className="text-black">{video.user_id}</span>
           <span>•</span>
@@ -42,7 +47,7 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
         </div>
       </div>
 
-      {/* Description */}
+      {/* Description section */}
       <div className="mt-8">
         <h3 className="text-sm text-gray-500 uppercase tracking-wider mb-4">
           Description

@@ -10,6 +10,11 @@ interface AddVideoModalProps {
   onClose: () => void;
 }
 
+/**
+ * Modal form for adding new videos to the platform.
+ * Validates URL is from a supported platform (YouTube, Vimeo, Dailymotion).
+ * On success, navigates to home and refreshes to show the new video.
+ */
 export default function AddVideoModal({ onClose }: AddVideoModalProps) {
   const router = useRouter();
   const [title, setTitle] = useState("");
