@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import SplashWrapper from "@/components/SplashWrapper";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,8 +30,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        <div className="min-h-screen">{children}</div>
+        <SplashWrapper>
+          <Header />
+          <div className="min-h-screen">{children}</div>
+        </SplashWrapper>
       </body>
     </html>
   );
