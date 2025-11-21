@@ -3,11 +3,21 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --knacky-primary: #f18701;
+  --knacky-primary-hover: #d97600;
+  --knacky-secondary: #3d348b;
+  --knacky-secondary-hover: #2c2365;
+  --knacky-splash-background: #f7b801;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-knacky-primary: var(--knacky-primary);
+  --color-knacky-primary-hover: var(--knacky-primary-hover);
+  --color-knacky-secondary: var(--knacky-secondary);
+  --color-knacky-secondary-hover: var(--knacky-secondary-hover);
+  --color-knacky-splash-background: var(--knacky-splash-background);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

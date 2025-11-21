@@ -32,9 +32,7 @@ export default function AddVideoModal({ onClose }: AddVideoModalProps) {
 
     // Validate that the URL is from a supported platform
     if (!getEmbedUrl(trimmedVideoUrl)) {
-      setError(
-        "Please enter a valid YouTube, Vimeo, or Dailymotion URL"
-      );
+      setError("Please enter a valid YouTube, Vimeo, or Dailymotion URL");
       return;
     }
 
