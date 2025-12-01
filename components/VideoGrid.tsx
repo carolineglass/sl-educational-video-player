@@ -27,9 +27,11 @@ export default function VideoGrid({ videos }: VideoGridProps) {
 
   return (
     <div className="grid grid-cols-12 gap-8">
-      {videos.map((video) => {
+      {videos.map((video, index) => {
         // Extract thumbnail from video URL (YouTube, Vimeo, Dailymotion)
         const thumbnailUrl = getThumbnailUrl(video.video_url);
+        // Only prioritize first 3 images (first row on desktop)
+        const isPriority = index < 3;
 
         return (
           <div
@@ -46,6 +48,7 @@ export default function VideoGrid({ videos }: VideoGridProps) {
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    priority={isPriority}
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full text-gray-500">
