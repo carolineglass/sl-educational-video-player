@@ -1,3 +1,5 @@
+import { VIDEO_EXTENSIONS } from "./constants";
+
 /**
  * Converts a YouTube, Vimeo, or Dailymotion URL to an embeddable URL
  */
@@ -51,6 +53,11 @@ export function getEmbedUrl(url: string): string | null {
       if (videoId) {
         return `https://www.dailymotion.com/embed/video/${videoId}?autoplay=false&mute=false`;
       }
+    }
+
+    // Direct MP4 videos (and other common video formats)
+    if (VIDEO_EXTENSIONS.some(ext => url.toLowerCase().endsWith(ext))) {
+      return url; // Return the URL as-is for direct video files
     }
 
     return null;

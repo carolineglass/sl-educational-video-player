@@ -1,5 +1,6 @@
 import { Video } from "@/lib/types";
 import { getEmbedUrl, formatDate } from "@/lib/utils";
+import { VIDEO_EXTENSIONS } from "@/lib/constants";
 
 interface VideoPlayerProps {
   video: Video;
@@ -13,19 +14,36 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
   // Convert video URL to embeddable format
   const embedUrl = getEmbedUrl(video.video_url);
 
+  // Check if this is a direct video file (MP4, WebM, etc.)
+  const isDirectVideo = embedUrl && VIDEO_EXTENSIONS.some(ext =>
+    embedUrl.toLowerCase().endsWith(ext)
+  );
+
   return (
     <div className="overflow-hidden">
       {/* Embedded video player (16:9 aspect ratio) */}
       <div className="relative bg-black aspect-video w-full">
         {embedUrl ? (
-          <iframe
-            src={embedUrl}
-            className="w-full h-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-            title={video.title}
-          />
+          isDirectVideo ? (
+            <video
+              controls
+              className="w-full h-full"
+              preload="metadata"
+              title={video.title}
+            >
+              <source src={embedUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <iframe
+              src={embedUrl}
+              className="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
+              title={video.title}
+            />
+          )
         ) : (
           // Fallback if URL couldn't be converted
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">

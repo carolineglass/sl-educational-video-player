@@ -31,7 +31,7 @@ export default function VideoGrid({ videos }: VideoGridProps) {
         // Extract thumbnail from video URL (YouTube, Vimeo, Dailymotion)
         const thumbnailUrl = getThumbnailUrl(video.video_url);
         // Only prioritize first 3 images (first row on desktop)
-        const isPriority = index < 3;
+        const isPriority = index < 6;
 
         return (
           <div

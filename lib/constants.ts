@@ -4,3 +4,6 @@ export const API_BASE_URL =
 
 // Username
 export const USER_ID = "caroline_glass";
+
+// Supported direct video file extensions
+export const VIDEO_EXTENSIONS = ['.mp4', '.webm', '.ogg', '.mov'];
